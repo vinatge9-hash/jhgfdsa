@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Niyantri Coffee - Cart</title>
+  <meta name="description" content="Your cart at Niyantri Coffee. Review items and checkout securely with PayPal." />
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="opacity-0 transition-opacity duration-1000 ease-in-out">
+  <header class="bg-white/90 backdrop-blur-sm sticky top-0 z-50">
+    <nav class="w-full px-4 py-4 md:flex md:items-center md:justify-between">
+      <a href="index.html" class="text-2xl font-bold text-slate-800">Niyantri Coffee</a>
+      <div class="hidden md:flex space-x-6">
+        <a href="index.html" class="text-slate-700 hover:text-slate-900 transition-all duration-300">Home</a>
+        <a href="menu.html" class="text-slate-700 hover:text-slate-900 transition-all duration-300">Menu</a>
+        <a href="cart.html" class="text-slate-700 hover:text-slate-900 transition-all duration-300">Cart</a>
+        <a href="about.html" class="text-slate-700 hover:text-slate-900 transition-all duration-300">About</a>
+        <a href="contact.html" class="text-slate-700 hover:text-slate-900 transition-all duration-300">Contact</a>
+      </div>
+      <button id="mobile-menu-button" class="md:hidden p-2 rounded-md bg-slate-100 hover:bg-slate-200 transition-all duration-300" aria-label="Open menu">☰</button>
+    </nav>
+    <div id="mobile-menu" class="md:hidden hidden px-4 pb-4">
+      <a href="index.html" class="block py-2 text-slate-700 hover:bg-slate-100 rounded">Home</a>
+      <a href="menu.html" class="block py-2 text-slate-700 hover:bg-slate-100 rounded">Menu</a>
+      <a href="cart.html" class="block py-2 text-slate-700 hover:bg-slate-100 rounded">Cart</a>
+      <a href="about.html" class="block py-2 text-slate-700 hover:bg-slate-100 rounded">About</a>
+      <a href="contact.html" class="block py-2 text-slate-700 hover:bg-slate-100 rounded">Contact</a>
+    </div>
+  </header>
+
+  <main class="w-full p-6">
+    <section class="max-w-full">
+      <h1 class="text-3xl font-semibold text-slate-800 mb-4">Your Cart</h1>
+      <div id="cart-items" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+      <div class="mt-6 flex items-center justify-between">
+        <p class="text-lg font-semibold">Total: $<span id="cart-total">0.00</span></p>
+        <div id="paypal-button-container"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="bg-slate-900 text-white py-6 mt-6">
+    <div class="w-full px-6 text-center">
+      <p class="text-sm">&copy; 2025 Niyantri Coffee. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="https://www.paypal.com/sdk/js?client-id=sb&currency=USD"></script>
+  <script>
+    // Mobile menu toggle
+    document.getElementById('mobile-menu-button').addEventListener('click', function(){
+      const m = document.getElementById('mobile-menu');
+      if (m.classList.contains('hidden')) { m.classList.remove('hidden'); } else { m.classList.add('hidden'); }
+    });
+
+    // Load or initialize cart from localStorage
+    function renderCart(){
+      const cart = JSON.parse(localStorage.getItem('ny_cart') || '[]');
+      const container = document.getElementById('cart-items');
+      container.innerHTML = '';
+      let total = 0;
+      cart.forEach((item, idx) => {
+        total += item.price * (item.qty || 1);
+        const div = document.createElement('div');
+        div.className = 'bg-white rounded-lg p-4 shadow-md flex justify-between items-center';
+        div.innerHTML = `
+          <div>
+            <strong>${item.name}</strong><br/>
+            <span class="text-sm text-slate-600">Qty: ${item.qty || 1}</span>
+          </div>
+          <div class="text-right">
+            <span class="block font-semibold">$${(item.price).toFixed(2)}</span>
+            <button class="mt-2 text-xs px-2 py-1 rounded border border-slate-300" onclick="removeFromCart(${idx})">Remove</button>
+          </div>`;
+        container.appendChild(div);
+      });
+      document.getElementById('cart-total').textContent = total.toFixed(2);
+      // Render PayPal button after total is known
+      renderPayPalButton(total);
+    }
+
+    function removeFromCart(index){
+      const cart = JSON.parse(localStorage.getItem('ny_cart') || '[]');
+      cart.splice(index, 1);
+      localStorage.setItem('ny_cart', JSON.stringify(cart));
+      renderCart();
+    }
+
+    // Initialize PayPal button (uses the total value from cart)
+    function renderPayPalButton(total){
+      const container = document.getElementById('paypal-button-container');
+      container.innerHTML = '';
+      if (total <= 0) { return; }
+      // eslint-disable-next-line no-undef
+      paypal.Buttons({
+        createOrder: function(data, actions) {
+          return actions.order.create({
+            purchase_units: [{ amount: { value: total.toFixed(2) } }]
+          });
+        },
+        onApprove: function(data, actions) {
+          return actions.order.capture().then(function(details) {
+            alert('Thank you for your purchase, ' + details.payer.name.given_name + '!');
+            localStorage.removeItem('ny_cart');
+            renderCart();
+          });
+        }
+      }).render('#paypal-button-container');
+    }
+
+    // Seed a default cart if empty for demonstration (optional)
+    if (!localStorage.getItem('ny_cart')) {
+      // Default demo items for cart (can be removed if you want an empty cart on first load)
+      localStorage.setItem('ny_cart', JSON.stringify([
+        { name: 'Espresso', price: 3.50, qty: 1 },
+        { name: 'Latte', price: 4.75, qty: 1 }
+      ]));
+    }
+
+    // Initial render
+    window.addEventListener('load', () => { renderCart(); document.body.classList.remove('opacity-0'); });
+  </script>
+</body>
+</html>
