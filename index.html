@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Niyantri Coffee - Home</title>
+  <meta name="description" content="Welcome to Niyantri Coffee — your cozy neighborhood cafe offering artisan coffees and fresh pastries." />
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="opacity-0 transition-opacity duration-1000 ease-in-out">
+  <header class="bg-white/90 backdrop-blur-sm sticky top-0 z-50">
+    <nav class="w-full px-4 py-4 md:flex md:items-center md:justify-between">
+      <a href="index.html" class="text-2xl font-bold text-slate-800">Niyantri Coffee</a>
+      <div class="hidden md:flex space-x-6">
+        <a href="index.html" class="text-slate-700 hover:text-slate-900 transition-all duration-300">Home</a>
+        <a href="menu.html" class="text-slate-700 hover:text-slate-900 transition-all duration-300">Menu</a>
+        <a href="cart.html" class="text-slate-700 hover:text-slate-900 transition-all duration-300">Cart</a>
+        <a href="about.html" class="text-slate-700 hover:text-slate-900 transition-all duration-300">About</a>
+        <a href="contact.html" class="text-slate-700 hover:text-slate-900 transition-all duration-300">Contact</a>
+      </div>
+      <button id="mobile-menu-button" class="md:hidden p-2 rounded-md bg-slate-100 hover:bg-slate-200 transition-all duration-300" aria-label="Open menu">☰</button>
+    </nav>
+    <div id="mobile-menu" class="md:hidden hidden px-4 pb-4">
+      <a href="index.html" class="block py-2 text-slate-700 hover:bg-slate-100 rounded">Home</a>
+      <a href="menu.html" class="block py-2 text-slate-700 hover:bg-slate-100 rounded">Menu</a>
+      <a href="cart.html" class="block py-2 text-slate-700 hover:bg-slate-100 rounded">Cart</a>
+      <a href="about.html" class="block py-2 text-slate-700 hover:bg-slate-100 rounded">About</a>
+      <a href="contact.html" class="block py-2 text-slate-700 hover:bg-slate-100 rounded">Contact</a>
+    </div>
+  </header>
+
+  <main class="w-full">
+    <section class="relative h-screen w-full overflow-hidden">
+      <img src="https://images.unsplash.com/photo-1547602543-671c6e89a25a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3ODkyNDZ8MHwxfHNlYXJjaHwzfHxhJTIwY296eSUyMGNvZmZlZSUyMHNob3AlMjBpbnRlcmlvciUyMHdpdGglMjB3YXJtJTIwbGlnaHRpbmd8ZW58MHwwfHx8MTc1NjcxMjM4Nnww&ixlib=rb-4.1.0&q=80&w=1080" alt="Cozy coffee shop ambiance" class="absolute inset-0 w-full h-full object-cover" />
+      <div class="absolute inset-0 bg-black/40"></div>
+      <div class="relative z-10 flex items-center justify-center h-full">
+        <div class="text-center text-white px-6">
+          <h1 class="text-5xl md:text-6xl font-bold mb-4" style="font-family: serif;">Niyantri Coffee</h1>
+          <p class="text-xl md:text-2xl mb-6">Brewing happiness, one cup at a time.</p>
+          <div class="flex items-center justify-center space-x-4">
+            <a href="menu.html" class="px-6 py-3 rounded-full bg-gradient-to-r from-amber-500 to-orange-600 text-white font-semibold shadow-md hover:shadow-lg transition-all duration-300 hover:-translate-y-0.5">View Menu</a>
+            <a href="about.html" class="px-6 py-3 rounded-full bg-white text-slate-800 border border-gray-300 font-semibold hover:bg-gray-100 transition-all duration-300">Learn More</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-16 bg-amber-50">
+      <div class="w-full px-6">
+        <h2 class="text-3xl font-semibold text-slate-800 mb-6 text-center">What makes Niyantri Coffee special</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <article class="bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+            <h3 class="font-semibold text-xl mb-2">Artisan Roasts</h3>
+            <p class="text-slate-700">Small-batch roasts with rich aroma and balanced acidity.</p>
+          </article>
+          <article class="bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+            <h3 class="font-semibold text-xl mb-2">Fresh Pastries</h3>
+            <p class="text-slate-700">Croissants, muffins and more baked daily on-site.</p>
+          </article>
+          <article class="bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+            <h3 class="font-semibold text-xl mb-2">Cozy Atmosphere</h3>
+            <p class="text-slate-700">A warm space to work, meet friends, or simply unwind.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-12 bg-white">
+      <div class="w-full px-6">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <blockquote class="bg-slate-50 p-6 rounded-lg border-l-4 border-amber-500">
+            <p class="text-slate-700 italic">&ldquo;A perfect cup that starts my day with a smile.&rdquo;</p>
+            <cite class="mt-2 block text-right text-slate-600">— S. Rao</cite>
+          </blockquote>
+          <blockquote class="bg-slate-50 p-6 rounded-lg border-l-4 border-amber-500">
+            <p class="text-slate-700 italic">&ldquo;Warm atmosphere and even warmer conversations.&rdquo;</p>
+            <cite class="mt-2 block text-right text-slate-600">— A. Sharma</cite>
+          </blockquote>
+          <blockquote class="bg-slate-50 p-6 rounded-lg border-l-4 border-amber-500">
+            <p class="text-slate-700 italic">&ldquo;Best roasted beans and friendly staff in town.&rdquo;</p>
+            <cite class="mt-2 block text-right text-slate-600">— K. Verma</cite>
+          </blockquote>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="bg-slate-900 text-white py-6">
+    <div class="w-full px-6 text-center">
+      <p class="text-sm">&copy; 2025 Niyantri Coffee. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu toggle
+    document.getElementById('mobile-menu-button').addEventListener('click', function(){
+      const m = document.getElementById('mobile-menu');
+      if (m.classList.contains('hidden')) {
+        m.classList.remove('hidden');
+      } else {
+        m.classList.add('hidden');
+      }
+    });
+
+    // Page load fade-in
+    window.addEventListener('load', () => document.body.classList.remove('opacity-0'));
+  </script>
+</body>
+</html>
